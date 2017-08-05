@@ -13,6 +13,7 @@
 #include <exception>
 #include <stdexcept>
 #include <functional>
+#include <cstdint>
 
 #include <time.h>
 

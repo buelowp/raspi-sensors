@@ -8,6 +8,8 @@
 #ifndef H_I2C_SENSOR
 #define H_I2C_SENSOR
 
+#include <string>
+#include <cstdint>
 #include <unistd.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
@@ -59,14 +61,22 @@ namespace sensor {
              * @return          The value read
              */
             uint16_t readRegister(uint16_t);
+            uint16_t readRegisterInt(uint16_t address);
 
             /**
              * Read and return integer data on the specified register
              * @param  uint16_t The instruction where to read
              * @return          The integer read
              */
-            uint16_t readRegisterInt(uint16_t address);
+            void readRegisterArray(uint16_t address, uint8_t*, int);
             
+            /**
+             * Read and return an array of uint8_t values
+             * @param uint16_6 Register to read from
+             * @param uint8_t* Pointer to buffer to store results
+             * @param int Number of array elements to read
+             * @
+             */
             /**
              * Write a value in the specified register
              * @param  uint16_t The instruction where to write at

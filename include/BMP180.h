@@ -8,8 +8,10 @@
 #ifndef H_BMP180
 #define H_BMP180
 
-#include "i2c_sensor.h"
-#include "sensor_result.h"
+#include <cstdint>
+#include <string>
+#include "../include/i2c_sensor.h"
+#include "../include/sensor_result.h"
 
 /**
  * @namespace sensor
