@@ -64,6 +64,14 @@ namespace sensor {
             uint16_t readRegisterInt(uint16_t address);
 
             /**
+             * Read and return data on the specified register
+             * @param  uint8_t The instruction where to read
+             * @return          The value read
+             */
+            uint8_t readRegister(uint8_t);
+            void readRegisterArray(uint8_t, uint8_t*, uint8_t);
+
+            /**
              * Read and return integer data on the specified register
              * @param  uint16_t The instruction where to read
              * @return          The integer read
@@ -83,6 +91,14 @@ namespace sensor {
              * @param  uint16_t The value to write
              */
             void writeRegister(uint16_t, uint16_t);
+
+            /**
+             * Write a value in the specified register
+             * @param  uint8_t The instruction where to write at
+             * @param  uint8_t The value to write
+             */
+            void writeRegister(uint8_t, uint8_t);
+            void writeRegisterArray(uint8_t, uint8_t*, uint8_t);
 
             /**
              * Open the bus to read data from. If the opening failed, the filed

@@ -33,6 +33,7 @@ public:
 	CCS811_sensor(uint16_t, std::string);
 	virtual ~CCS811_sensor();
 
+	void setGpio(int);
     /**
      *  @brief Return the type of the sensor (BMP180)
      */
@@ -57,12 +58,23 @@ public:
      */
     static sensor* create(int, const std::string&);
 
+    /**
+     * @brief Get HW id from CCS811
+     *
+     * @return Returns the HW id as an unsigned 8 bit value
+     */
+    uint8_t readHW_ID();
+    uint8_t readStatus();
+    uint8_t readErrorID(uint8_t);
+    void getData();
+
 private:
     void compensate(float, float);
     void getData();
 
-    sensor::gpio *m_gpio;
-
+    gpio *m_gpio;
+    int m_tvoc;
+    int m_co2;
 };
 
 } /* namespace sensor */

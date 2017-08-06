@@ -10,7 +10,7 @@
 
 #include <time.h>
 
-namespace sensors {
+namespace sensor {
 	void sleep(int, int);
 }
 
