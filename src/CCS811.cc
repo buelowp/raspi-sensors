@@ -12,6 +12,8 @@ namespace sensor {
 	CCS811_sensor::CCS811_sensor(uint16_t addr, std::string name) : i2c_sensor(addr, name)
 	{
 		m_gpio = NULL;
+		m_tvoc = 0;
+		m_co2 = 0;
 	}
 
 	CCS811_sensor::~CCS811_sensor()
