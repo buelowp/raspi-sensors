@@ -89,49 +89,15 @@ namespace sensor {
         goto end;
 
         error:
-        closeBus();
-        throw sensorException(fmt::format("Read register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
-        return 0x0;
+        	closeBus();
+        	throw sensorException(fmt::format("Read register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
+        	return 0x0;
 
         end:
-        closeBus();
-        return response;
+        	closeBus();
+        	return response;
     }
     
-    /**
-     * Read and return data on the specified register
-     * @param  uint16_t The instruction where to read
-     * @return          The value read
-     */
-    uint8_t i2c_sensor::readRegister(uint8_t address) {
-    	uint8_t response = 0x0;
-
-        // Open the bus
-        openBus();
-
-        // Try to acquire the bus access
-        if(ioctl(getBus(), I2C_SLAVE, getDeviceAddress()) < 0)
-            goto error;
-
-        // send the register address which want to read,
-        // and read the response
-        if(write(getBus(), &address, 1) != 1)
-            goto error;
-        if(read(getBus(), &response, 1) != 1)
-            goto error;
-
-        goto end;
-
-        error:
-        closeBus();
-        throw sensorException(fmt::format("Read register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
-        return 0x0;
-
-        end:
-        closeBus();
-        return response;
-    }
-
     /**
      * Read and return integer data on the specified register
      * @param  uint16_t The instruction where to read
@@ -169,7 +135,7 @@ namespace sensor {
         return response;
     }
     
-    void i2c_sensor::readRegisterArray(uint8_t address, uint8_t *array, uint8_t size)
+    void i2c_sensor::readRegisterArray(uint16_t address, uint8_t *array, uint8_t size)
     {
          // Open the bus
          openBus();
@@ -188,12 +154,11 @@ namespace sensor {
          goto end;
 
          error:
-         closeBus();
-         throw sensorException(fmt::format("Read register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
-         return 0x0;
+         	 closeBus();
+         	 throw sensorException(fmt::format("Read register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
 
          end:
-         closeBus();
+         	 closeBus();
     }
 
     /**
@@ -213,38 +178,6 @@ namespace sensor {
 
         buf[0] = (int8_t)address;
         buf[1] = (int8_t)value;
-
-        // Send the register and the data
-        if(write(getBus(), buf, 2) != 2)
-            goto error;
-
-        goto end;
-
-        error:
-        closeBus();
-        throw sensorException(fmt::format("Write register operation failed : {0}", strerror(errno)), sensorErrorCode::I2C_ERROR);
-
-        end:
-        closeBus();
-    }
-
-    /**
-     * Write a value in the specified register
-     * @param  uint8_t The instruction where to write at
-     * @param  uint8_t The value to write
-     */
-    void i2c_sensor::writeRegister(uint8_t address, uint8_t value) {
-        int8_t buf[2] = {0}; // buffer for write.
-
-        // Open the bus
-        openBus();
-
-        // Try to acquire the bus access
-        if(ioctl(getBus(), I2C_SLAVE, getDeviceAddress()) < 0)
-            goto error;
-
-        buf[0] = address;
-        buf[1] = value;
 
         // Send the register and the data
         if(write(getBus(), buf, 2) != 2)

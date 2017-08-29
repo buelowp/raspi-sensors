@@ -5,7 +5,7 @@
  *      Author: pete
  */
 
-#include <CCS811sensor.h>
+#include <CCS811.h>
 
 namespace sensor {
 
@@ -71,7 +71,7 @@ namespace sensor {
 		m_gpio->low();
 		sleep(0, 50);
 		writeRegister(ALG_RESULT_DATA, 0);
-		readRegisterArray(ALG_RESULT_DATA, &buffer, 8);
+		readRegisterArray((uint16_t)ALG_RESULT_DATA, buffer, (uint8_t)8);
 		m_co2 = ((uint16_t)buffer[0] << 8) | buffer[1];
 		m_tvoc = ((uint16_t)buffer[2] << 8) | buffer[3];
 		m_gpio->high();
@@ -121,20 +121,5 @@ namespace sensor {
 		}
 		return error_id;
 	}
-
-	void CCS811_sensor::getData(void)
-	{
-		uint8_t buffer[8];
-
-		//CCS811::compensate(t, rh);
-		m_gpio->low();
-		sleep(0, 50);
-		writeRegister(ALG_RESULT_DATA, 0);
-		readRegister(ALG_RESULT_DATA, &buffer, 8);
-		m_co2 = ((uint16_t)buffer[0] << 8) | buffer[1];
-		m_tvoc = ((uint16_t)buffer[2] << 8) | buffer[3];
-		m_gpio->high();
-	}
-
 
 } /* namespace sensor */

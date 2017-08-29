@@ -70,7 +70,6 @@ public:
 
 private:
     void compensate(float, float);
-    void getData();
 
     gpio *m_gpio;
     int m_tvoc;

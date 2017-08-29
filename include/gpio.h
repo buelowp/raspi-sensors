@@ -8,7 +8,7 @@
 #ifndef INCLUDE_GPIO_H_
 #define INCLUDE_GPIO_H_
 
-#include <ofstream>
+#include <fstream>
 #include <string>
 
 namespace sensor {

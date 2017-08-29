@@ -12,7 +12,7 @@
 
 namespace sensor {
 
-    BMP180_sensor::BMP180_sensor(uint16_t deviceAddress, std::string _name):i2c_sensor(deviceAddress, _name) {}
+    BMP180_sensor::BMP180_sensor(uint16_t deviceAddress, std::string _name) : i2c_sensor(deviceAddress, _name) {}
 
     BMP180_sensor::~BMP180_sensor() {};
 
@@ -21,17 +21,17 @@ namespace sensor {
     }
 
     void BMP180_sensor::prepare() {
-        ac1 = readRegisterInt(0xAA);
-        ac2 = readRegisterInt(0xAC);
-        ac3 = readRegisterInt(0xAE);
-        ac4 = readRegisterInt(0xB0);
-        ac5 = readRegisterInt(0xB2);
-        ac6 = readRegisterInt(0xB4);
-        b1 = readRegisterInt(0xB6);
-        b2 = readRegisterInt(0xB8);
-        mb = readRegisterInt(0xBA);
-        mc = readRegisterInt(0xBC);
-        md = readRegisterInt(0xBE);
+        ac1 = readRegister(0xAA);
+        ac2 = readRegister(0xAC);
+        ac3 = readRegister(0xAE);
+        ac4 = readRegister(0xB0);
+        ac5 = readRegister(0xB2);
+        ac6 = readRegister(0xB4);
+        b1 = readRegister(0xB6);
+        b2 = readRegister(0xB8);
+        mb = readRegister(0xBA);
+        mc = readRegister(0xBC);
+        md = readRegister(0xBE);
     }
 
     /**
@@ -40,21 +40,21 @@ namespace sensor {
      */
     int32_t BMP180_sensor::readUT() {
         // Write 0x2E at register 0xF4
-        writeRegister(0xF4, 0x2E);
+        writeRegister((uint16_t)0xF4, (uint16_t)0x2E);
 
         // Wait for 4.5ms / 4500 microsecondes
         microsecondSleep(4500);
 
         // Read register 0xF6 (MSB), 0xF7 (LSB), and 0xF8 (XLSB)
-        uint16_t msb = readRegister(0xF6);
-        uint16_t lsb = readRegister(0xF7);
+        uint16_t msb = readRegister((uint16_t)0xF6);
+        uint16_t lsb = readRegister((uint16_t)0xF7);
 
         return (msb << 8) + lsb;
     }
 
     int32_t BMP180_sensor::readUP() {
         // Write 0x34 at register 0xF4
-        writeRegister(0xF4, 0x34 + (oss << 6));
+        writeRegister((uint16_t)0xF4, (0x34 + (oss << 6)));
 
         // Sleep for 2ms + 3ms << oss
         microsecondSleep((2 + (3 << oss)) * 1000);

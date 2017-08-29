@@ -61,31 +61,18 @@ namespace sensor {
              * @return          The value read
              */
             uint16_t readRegister(uint16_t);
-            uint16_t readRegisterInt(uint16_t address);
 
             /**
-             * Read and return data on the specified register
-             * @param  uint8_t The instruction where to read
-             * @return          The value read
-             */
-            uint8_t readRegister(uint8_t);
-            void readRegisterArray(uint8_t, uint8_t*, uint8_t);
-
-            /**
-             * Read and return integer data on the specified register
-             * @param  uint16_t The instruction where to read
-             * @return          The integer read
-             */
-            void readRegisterArray(uint16_t address, uint8_t*, int);
+              * Read and return an array of uint8_t values
+              * @param uint16_6 Register to read from
+              * @param uint8_t* Pointer to buffer to store results
+              * @param int Number of array elements to read
+              * @
+              */
+            void readRegisterArray(uint16_t address, uint8_t*, uint8_t);
+            uint16_t readRegisterInt(uint16_t);
             
-            /**
-             * Read and return an array of uint8_t values
-             * @param uint16_6 Register to read from
-             * @param uint8_t* Pointer to buffer to store results
-             * @param int Number of array elements to read
-             * @
-             */
-            /**
+             /**
              * Write a value in the specified register
              * @param  uint16_t The instruction where to write at
              * @param  uint16_t The value to write
@@ -97,7 +84,6 @@ namespace sensor {
              * @param  uint8_t The instruction where to write at
              * @param  uint8_t The value to write
              */
-            void writeRegister(uint8_t, uint8_t);
             void writeRegisterArray(uint8_t, uint8_t*, uint8_t);
 
             /**
